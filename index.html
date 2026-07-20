@@ -18,23 +18,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..600;1,9..144,300..600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 <style>
   :root {
-    --paper: #f2f2ed;          /* cool-cast paper */
-    --paper-dim: #e9eae3;
-    --paper-cold: #e3e7e4;
-    --ink: #1a1f24;
-    --ink-soft: #333a41;
-    --ink-mute: #68707a;
-    --rule: #d6d8cf;
-    --rule-strong: #bfc2b8;
-    --indigo: #24314b;         /* night sky */
-    --indigo-deep: #1a2438;
-    --steel: #4f6a82;
-    --ice: #b9cbd6;
-    --ice-pale: #dfe8ed;
-    --spruce: #2c4237;
-    --signal: #c19a3f;         /* highway centreline ochre */
-    --hero-ink: #e8edf1;
-    --hero-mute: #93a4b4;
+    --bg: #fbfaf7;
+    --surface: #ffffff;
+    --sage: #eef1ea;
+    --line: #e3e1d8;
+    --ink: #22261f;
+    --ink-soft: #4c5245;
+    --mute: #8b9083;
+    --pine: #3d5a3f;
+    --pine-deep: #2c4230;
+    --sun: #c98f2d;
+    --hero-ink: #f2f1ea;
+    --hero-mute: #cfd4c6;
+    --ice: #cfd4c6;
+    --ice-pale: #f2f1ea;
+    /* legacy aliases */
+    --paper: var(--bg);
+    --paper-dim: var(--sage);
+    --paper-cold: var(--sage);
+    --ink-mute: var(--mute);
+    --rule: var(--line);
+    --rule-strong: var(--line);
+    --indigo: var(--pine);
+    --indigo-deep: var(--pine-deep);
+    --steel: var(--pine);
+    --signal: var(--sun);
   }
   * { box-sizing: border-box; }
   html { scroll-behavior: smooth; }
@@ -46,7 +54,7 @@
     -webkit-font-smoothing: antialiased;
     text-rendering: optimizeLegibility;
   }
-  ::selection { background: var(--indigo); color: var(--paper); }
+  ::selection { background: var(--pine); color: #fff; }
 
   a { color: inherit; text-decoration: none; }
   .link { border-bottom: 1px solid var(--rule-strong); transition: border-color .2s, color .2s; }
@@ -54,13 +62,13 @@
 
   h1, h2, h3 {
     font-family: "Fraunces", "Times New Roman", serif;
-    font-weight: 400; line-height: 1.08; letter-spacing: -0.02em;
+    font-weight: 500; line-height: 1.08; letter-spacing: -0.02em;
     margin: 0; color: var(--ink);
     font-variation-settings: "opsz" 144, "SOFT" 30;
   }
   h1 { font-size: clamp(2.6rem, 6vw, 4.6rem); }
   h2 { font-size: clamp(1.6rem, 3vw, 2.25rem); }
-  h3 { font-size: 1.22rem; font-weight: 500; line-height: 1.3; }
+  h3 { font-size: 1.22rem; font-weight: 600; line-height: 1.3; }
   em { font-style: italic; }
   p { margin: 0 0 1.05rem; color: var(--ink-soft); font-size: 1.03rem; line-height: 1.72; }
 
@@ -70,19 +78,20 @@
   .eyebrow {
     display: flex; align-items: center; gap: 1rem;
     font-size: 0.7rem; letter-spacing: 0.24em; text-transform: uppercase;
-    font-weight: 600; color: var(--ink-mute);
+    font-weight: 600; color: var(--pine);
     margin-bottom: 1rem;
   }
-  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--rule); }
+  .eyebrow::before { content: ""; width: 24px; height: 2px; background: var(--sun); border-radius: 2px; flex: 0 0 auto; }
+  .eyebrow::after { content: ""; flex: 1; height: 1px; background: var(--line); }
 
   /* km chip — the mile-marker motif */
   .km {
     display: inline-block;
     font-family: "Inter", sans-serif;
     font-size: 0.66rem; font-weight: 700; letter-spacing: 0.14em;
-    color: var(--indigo);
-    border: 1.4px solid var(--indigo);
-    border-radius: 3px;
+    color: var(--pine);
+    border: 1.4px solid var(--pine);
+    border-radius: 999px;
     padding: 0.18rem 0.5rem;
     background: var(--paper);
     white-space: nowrap;
@@ -99,18 +108,21 @@
   /* ---------- NAV ---------- */
   nav.top {
     position: sticky; top: 0; z-index: 60;
-    background: rgba(242,242,237,0.92);
-    backdrop-filter: blur(9px);
+    background: rgba(251,250,247,0.9);
+    backdrop-filter: blur(10px);
     border-bottom: 1px solid var(--rule);
   }
   nav.top .inner {
     max-width: 1120px; margin: 0 auto;
-    display: flex; align-items: baseline; justify-content: space-between;
+    display: flex; align-items: center; justify-content: space-between;
     gap: 1rem; padding: 0.95rem 1.75rem;
   }
-  .wordmark { display: flex; align-items: baseline; gap: 0.85rem; }
+  .wordmark { display: flex; align-items: center; gap: 0.75rem; }
+  .wordmark .peak { width: 38px; height: 38px; background: var(--pine); border-radius: 50%; display: grid; place-items: center; flex: 0 0 auto; }
+  .wordmark .peak svg { width: 22px; height: 22px; display: block; }
+  .wordmark .peak path { stroke: #fff; stroke-width: 2.2; fill: none; stroke-linecap: round; stroke-linejoin: round; }
   .wordmark .name {
-    font-family: "Fraunces", serif; font-weight: 500; font-size: 1.08rem;
+    font-family: "Fraunces", serif; font-weight: 600; font-size: 1.08rem;
     letter-spacing: -0.01em; color: var(--ink);
   }
   .wordmark .tag {
@@ -204,12 +216,14 @@
     display: grid;
     grid-template-columns: repeat(6, 1fr);
     gap: 1px;
-    background: var(--rule-strong);
-    border: 1px solid var(--rule-strong);
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 1px 3px rgba(34,38,31,0.06);
     margin-top: 2.5rem;
   }
   .stat {
-    background: var(--paper);
+    background: var(--surface);
     padding: 1.6rem 1.4rem 1.5rem;
   }
   .stat:nth-child(1), .stat:nth-child(2) { grid-column: span 2; }
@@ -272,7 +286,7 @@
   }
   .note-card .n {
     font-family: "Fraunces", serif; font-style: italic;
-    font-size: 0.95rem; color: var(--steel);
+    font-size: 0.95rem; color: var(--sun);
     display: block; margin-bottom: 0.3rem;
   }
   .note-card h3 { margin-bottom: 0.4rem; }
@@ -286,10 +300,11 @@
   }
   @media (max-width: 900px) { .water-grid { grid-template-columns: 1fr; gap: 2.5rem; } }
   .rules-card {
-    background: var(--indigo-deep);
+    background: var(--pine-deep);
     color: var(--ice-pale);
     padding: 1.9rem 1.75rem;
-    border-radius: 4px;
+    border-radius: 14px;
+    box-shadow: 0 1px 3px rgba(34,38,31,0.06);
   }
   .rules-card h3 {
     color: var(--hero-ink);
@@ -309,13 +324,14 @@
   .rules-card ol li::before {
     content: counter(rule, decimal-leading-zero);
     font-family: "Fraunces", serif; font-style: italic;
-    color: var(--hero-mute); font-size: 0.95rem;
+    color: var(--sun); font-size: 0.95rem;
   }
   .aside-rental {
     margin-top: 2.5rem;
     padding: 1.35rem 1.5rem;
-    background: var(--paper-cold);
-    border-left: 2px solid var(--steel);
+    background: var(--sage);
+    border-left: 2px solid var(--pine);
+    border-radius: 0 12px 12px 0;
     font-size: 0.96rem; color: var(--ink-soft); line-height: 1.65;
   }
   .aside-rental strong {
@@ -329,8 +345,8 @@
   table.season-table {
     width: 100%; min-width: 640px;
     border-collapse: collapse;
-    background: var(--paper);
-    border: 1px solid var(--rule-strong);
+    background: var(--surface);
+    border: 1px solid var(--line);
     font-size: 0.95rem;
   }
   table.season-table th {
@@ -420,6 +436,7 @@
 <nav class="top">
   <div class="inner">
     <a class="wordmark" href="https://seatoskytrails.com/">
+      <span class="peak"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 18 L9 8 L12 12 L16 5 L21 18"/></svg></span>
       <span class="name">Duffey Lake</span>
       <span class="tag">A Roadside Almanac &middot; Sea to Sky Trails</span>
     </a>
@@ -446,7 +463,7 @@
       <linearGradient id="water" x1="0" y1="0" x2="0" y2="1">
         <stop offset="0" stop-color="#5a7690"/>
         <stop offset="0.35" stop-color="#33465f"/>
-        <stop offset="1" stop-color="#17202f"/>
+        <stop offset="1" stop-color="#2c4230"/>
       </linearGradient>
       <clipPath id="lakeClip"><rect x="0" y="378" width="1440" height="242"/></clipPath>
     </defs>
@@ -569,8 +586,8 @@
 <section class="photo-feature" style="padding:4.5rem 0 0;">
   <div class="wrap">
     <figure style="margin:0;">
-      <div role="img" aria-label="Duffey Lake from the west end in late winter: the snowbound Joffre group rising behind the frozen far reach of the lake, driftwood logs strung across calm open water in the foreground" style="background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Joffre_Peak.jpg/1280px-Joffre_Peak.jpg') center/cover no-repeat; aspect-ratio:16/9; border-radius:6px; border:1px solid var(--rule);"></div>
-      <figcaption style="font-family:'Fraunces',serif; font-style:italic; font-size:0.85rem; color:var(--ink-mute, #7a7268); margin-top:0.6rem;">Joffre Peak over Duffey Lake, from Highway 99. Photo &mdash; Murray Foubister (CC BY-SA 2.0), via Wikimedia Commons.</figcaption>
+      <div role="img" aria-label="Duffey Lake from the west end in late winter: the snowbound Joffre group rising behind the frozen far reach of the lake, driftwood logs strung across calm open water in the foreground" style="background:url('https://upload.wikimedia.org/wikipedia/commons/thumb/7/72/Joffre_Peak.jpg/1280px-Joffre_Peak.jpg') center/cover no-repeat; aspect-ratio:16/9; border-radius:12px; border:1px solid var(--line);"></div>
+      <figcaption style="font-family:'Fraunces',serif; font-style:italic; font-size:0.85rem; color:var(--mute); margin-top:0.6rem;">Joffre Peak over Duffey Lake, from Highway 99. Photo &mdash; Murray Foubister (CC BY-SA 2.0), via Wikimedia Commons.</figcaption>
     </figure>
   </div>
 </section>
